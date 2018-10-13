@@ -1,3 +1,4 @@
+import {TRACERPATHPREFIX} from '../publicPath';
 import {component} from 'flightjs';
 import {errToStr} from '../../js/component_ui/error';
 import $ from 'jquery';
@@ -46,7 +47,7 @@ export default component(function DefaultData() {
       return;
     }
     const apiQuery = convertToApiQuery(query);
-    const apiURL = `api/v2/traces?${queryString.stringify(apiQuery)}`;
+    const apiURL = `${TRACERPATHPREFIX}api/v2/traces?${queryString.stringify(apiQuery)}`;
     $.ajax(apiURL, {
       type: 'GET',
       dataType: 'json'

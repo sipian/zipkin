@@ -1,10 +1,11 @@
+import {TRACERPATHPREFIX} from '../publicPath';
 import {component} from 'flightjs';
 import {getError} from '../../js/component_ui/error';
 import $ from 'jquery';
 
 export default component(function serviceNames() {
   this.updateServiceNames = function(ev, lastServiceName) {
-    $.ajax('api/v2/services', {
+    $.ajax(`${TRACERPATHPREFIX}api/v2/services`, {
       type: 'GET',
       dataType: 'json'
     }).done(names => {

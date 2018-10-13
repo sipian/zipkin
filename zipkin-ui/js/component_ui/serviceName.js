@@ -5,16 +5,6 @@ import queryString from 'query-string';
 
 import 'chosen-js';
 
-  // Sorting based on the localCompare so that sorting can be
-  // accomplished for non-ascii (non english) service names.
-export function sortServiceNames(serviceNames) {
-  if (serviceNames) {
-    serviceNames.sort((a, b) =>
-       a.localeCompare(b)
-    );
-  }
-  return serviceNames;
-}
 export default component(function serviceName() {
   this.onChange = function() {
     Cookies.set('last-serviceName', this.$node.val());
@@ -28,8 +18,8 @@ export default component(function serviceName() {
   this.updateServiceNameDropdown = function(ev, data) {
     $('#serviceName').empty();
     this.$node.append($($.parseHTML('<option value="all">all</option>')));
-    const services = sortServiceNames(data.names);
-    $.each(services, (i, item) => {
+
+    $.each(data.names, (i, item) => {
       $('<option>').val(item).text(item).appendTo('#serviceName');
     });
 
@@ -40,8 +30,8 @@ export default component(function serviceName() {
     // On the first view there won't be a selected or "last" service
     // name.  Instead the first service at the top of the list will be
     // displayed, so load the span names for the top service too.
-    if (!data.lastServiceName && services && services.length > 1) {
-      this.$node.trigger('uiFirstLoadSpanNames', services[0]);
+    if (!data.lastServiceName && data.names && data.names.length > 1) {
+      this.$node.trigger('uiFirstLoadSpanNames', data.names[0]);
     }
   };
 

@@ -14,7 +14,6 @@ import {contextRoot} from '../publicPath';
 
 const TracePageComponent = component(function TracePage() {
   this.after('initialize', function() {
-    window.document.title = 'Zipkin - Traces';
     $('body').tooltip({
       selector: '[data-toggle="tooltip"]'
     });
@@ -44,7 +43,7 @@ const TracePageComponent = component(function TracePage() {
         this.trigger('uiRequestJsonPanel', {
           title: `Trace ${this.attr.traceId}`,
           obj: data.trace,
-          link: `${contextRoot}api/v2/trace/${this.attr.traceId}`
+          link: `${contextRoot}api/v2/trace?id=${this.attr.traceId}`
         });
       });
 

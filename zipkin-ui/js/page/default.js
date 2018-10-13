@@ -18,7 +18,6 @@ import BackToTop from '../component_ui/backToTop';
 import {defaultTemplate} from '../templates';
 import {searchDisabled} from '../templates';
 import {contextRoot} from '../publicPath';
-import {i18nInit} from '../component_ui/i18n';
 import bootstrap // eslint-disable-line no-unused-vars
     from 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -42,7 +41,6 @@ const DefaultPageComponent = component(function DefaultPage() {
   };
 
   this.after('initialize', function() {
-    window.document.title = 'Zipkin - Index';
     if (!this.attr.config('searchEnabled')) {
       this.$node.html(searchDisabled());
       return;
@@ -90,7 +88,6 @@ const DefaultPageComponent = component(function DefaultPage() {
       TimeStampUI.attachTo('#end-ts');
       TimeStampUI.attachTo('#start-ts');
       BackToTop.attachTo('#backToTop');
-      i18nInit('traces');
       $('.timeago').timeago();
       // Need to initialize the datepicker when the UI refershes. Can be optimized
       this.$date = this.$node.find('.date-input');

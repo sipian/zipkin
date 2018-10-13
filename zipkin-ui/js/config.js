@@ -1,3 +1,4 @@
+import {TRACERPATHPREFIX} from './publicPath';
 import $ from 'jquery';
 
 const defaults = {
@@ -5,14 +6,10 @@ const defaults = {
   queryLimit: 10,
   defaultLookback: 60 * 60 * 1000, // 1 hour
   searchEnabled: true,
-  dependency: {
-    lowErrorRate: 0.5, // 50% of calls in error turns line yellow
-    highErrorRate: 0.75 // 75% of calls in error turns line red
-  }
 };
 
 export default function loadConfig() {
-  return $.ajax('config.json', {
+  return $.ajax(`${TRACERPATHPREFIX}config.json`, {
     type: 'GET',
     dataType: 'json'
   }).then(data => function config(key) {

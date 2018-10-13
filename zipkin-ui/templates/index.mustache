@@ -21,6 +21,8 @@
         <label for="lookback" data-i18n="traces.lookback">Lookback</label>
         <div class="clearfix">
           <select class="form-control" name="lookback" id="lookback">
+            <option value="300000" data-i18n="traces.lookback.5min">5 min</option>
+            <option value="1800000" data-i18n="traces.lookback.30min">30 min</option>
             <option value="3600000" data-i18n="traces.lookback.1hour">1 hour</option>
             <option value="10800000" data-i18n="traces.lookback.3hours">3 hours</option>
             <option value="21600000" data-i18n="traces.lookback.6hours">6 hours</option>
@@ -62,7 +64,7 @@
         <div class="clearfix">
           <input type="text" class="form-control input-sm" id="annotationQuery" name="annotationQuery"
                      value="{{annotationQuery}}" style="width: 100%"
-                     placeholder='e.g. "http.path=/foo/bar/ and cluster=foo and cache.miss"'>
+                     placeholder='e.g. "http.method":"get|GET","http.url":"/metrics"'>
         </div>
       </div>
 
@@ -138,12 +140,10 @@
             <span class="bar-label">{{durationStr}}</span>
             <span class="bar-label">{{totalSpans}} spans</span>
           </div>
-          {{#servicePercentage}}
           <div class="bar-block">
             <span class="bar-graphic" style="width:{{servicePercentage}}%;"></span>
             <span class="bar-label">{{serviceName}} {{servicePercentage}}%</span>
           </div>
-          {{/servicePercentage}}
         </a>
         <div class="trace-details services">
           {{#serviceDurations}}
@@ -175,37 +175,30 @@
         <h4 data-i18n="modal.title2">Service names</h4>
         <p data-i18n="modal.p2">First off you have select a service to lookup by. All traces are indexed by service
           names.</p>
-        <p data-i18n="modal.p3">Once that is done you have three options to pick from. See notes on each below.</p>
+        <p data-i18n="modal.p3">Once that is done you have two options to pick from. See notes on each below.</p>
 
         <h4 data-i18n="modal.title3">1. Lookups by span name</h4>
-        <p data-i18n="modal.p4">Span names are generally thrift method names or Rails endpoints. This allows you to look
-          up traces
-          that accessed a particular part of the service.</p>
-
-        <h4 data-i18n="modal.title4">2. Lookups by annotation</h4>
-        <p data-i18n="modal.p5">An annotation is a point in time in the trace. It is assigned a string value, this is
-          what you can look up
-          by in this field. Could be things like</p> <strong>finagle.timeout</strong>
+        <p data-i18n="modal.p4">Span names are generally method names or HTTP endpoints. This allows you to look
+          up traces that accessed a particular part of the service.</p>
 
         <h4 data-i18n="modal.title5">3. Lookups by key/value</h4>
-        <p data-i18n="modal.p6">Key / value annotations are just extra metadata attached to a trace. This could be
-          things like the url hit,
-          response codes or exceptions. See below for a few examples.</p>
+        <p data-i18n="modal.p6">Key / value are tags attached to the trace spans. This could be
+          things like the url hit, response codes or exceptions.
+          Input should be given as comma delimited "key":"value" (similar to an unnested json).
+          The key should be a tag name. The value can be a regex to be checked on the corresponding tag value.    
+          All key/value pair are AND against each other. This means at least one span in the trace must match all of these.
+          See below for a few examples.</p>
         <table class="table table-bordered">
           <thead>
           <tr>
-            <td><strong>Key</strong></td>
-            <td><strong>Value</strong></td>
+            <td><strong>Purpose</strong></td>
+            <td><strong>Query</strong></td>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td>tfe.uri</td>
-            <td>/1/trends/available.json?lang=en</td>
-          </tr>
-          <tr>
-            <td>http.responsecode</td>
-            <td>500 Internal Server Error</td>
+            <td>HTTP GET requests to /metrics</td>
+            <td>"http.method":"get|GET","http.url":"/metrics"</td>
           </tr>
           </tbody>
         </table>

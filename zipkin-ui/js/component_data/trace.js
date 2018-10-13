@@ -1,3 +1,4 @@
+import {TRACERPATHPREFIX} from '../publicPath';
 import {component} from 'flightjs';
 import $ from 'jquery';
 import {getError} from '../../js/component_ui/error';
@@ -16,7 +17,7 @@ export default component(function TraceData() {
   this.after('initialize', function() {
     const traceId = this.attr.traceId;
     const logsUrl = toContextualLogsUrl(this.attr.logsUrl, traceId);
-    $.ajax(`api/v2/trace/${traceId}`, {
+    $.ajax(`${TRACERPATHPREFIX}api/v2/trace?id=${traceId}`, {
       type: 'GET',
       dataType: 'json'
     }).done(raw => {

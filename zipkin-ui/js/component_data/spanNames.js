@@ -1,3 +1,4 @@
+import {TRACERPATHPREFIX} from '../publicPath';
 import {component} from 'flightjs';
 import {getError} from '../../js/component_ui/error';
 import $ from 'jquery';
@@ -8,7 +9,7 @@ export default component(function spanNames() {
       this.trigger('dataSpanNames', {spans: []});
       return;
     }
-    $.ajax(`api/v2/spans?serviceName=${serviceName}`, {
+    $.ajax(`${TRACERPATHPREFIX}api/v2/spans?serviceName=${serviceName}`, {
       type: 'GET',
       dataType: 'json'
     }).done(spans => {

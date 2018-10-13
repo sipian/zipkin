@@ -12,7 +12,7 @@ export default component(function ErrorUI() {
 
 // converts an jqXhr error to a string
 export function errToStr(e) {
-  return e.responseJSON ? e.responseJSON.message : `server error (${e.statusText})`;
+  return e.responseJSON ? e.responseJSON.message : `${e.responseText}`;
 }
 
 // transforms an ajax error into something that is passed to
