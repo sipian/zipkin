@@ -1,6 +1,5 @@
 import {component} from 'flightjs';
 import $ from 'jquery';
-import {i18nInit} from '../component_ui/i18n';
 
 const NavbarUI = component(function navbar() {
   this.onNavigate = function(ev, {route}) {
@@ -15,7 +14,6 @@ const NavbarUI = component(function navbar() {
   };
 
   this.after('initialize', function() {
-    i18nInit('nav');
     this.on(document, 'navigate', this.onNavigate);
   });
 });

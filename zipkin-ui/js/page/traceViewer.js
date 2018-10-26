@@ -49,8 +49,6 @@ const TraceViewerPageComponent = component(function TraceViewerPage() {
   };
 
   this.after('initialize', function() {
-    window.document.title = 'Zipkin - Trace Viewer';
-
     this.render({});
 
     this.on(document, 'traceViewerPageModelView', function(ev, data) {

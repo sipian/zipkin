@@ -1,4 +1,5 @@
 import loadConfig from '../js/config';
+import {TRACERPATHPREFIX} from '../js/publicPath';
 
 const sinon = require('sinon');
 
@@ -12,7 +13,7 @@ describe('Config Data', () => {
   after(() => { server.restore(); });
 
   it('searchEnabled defaults to true', (done) => {
-    server.respondWith('config.json', [
+    server.respondWith(`${TRACERPATHPREFIX}config.json`, [
       200, {'Content-Type': 'application/json'}, JSON.stringify({})
     ]);
 
@@ -24,7 +25,7 @@ describe('Config Data', () => {
 
   // This tests false can override true!
   it('should parse searchEnabled false value', (done) => {
-    server.respondWith('config.json', [
+    server.respondWith(`${TRACERPATHPREFIX}config.json`, [
       200, {'Content-Type': 'application/json'}, JSON.stringify(
         {searchEnabled: false}
       )
